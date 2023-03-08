@@ -5,8 +5,7 @@
 const saimonSaysDom = document.getElementById('saimon-says');
 const foundNumbersDom = document.getElementById('found-numbers');
 let numberList = [];
-let userNumbers = [];
-let foundNumbers = [];
+
 
 
 //genero i 5 numeri casuali per il giocatore
@@ -17,31 +16,42 @@ for(let i = 0; i < 5; i++){
 
 saimonSaysDom.innerHTML = numberList
 
-// setTimeout(hide (saimonSaysDom), 30000);
-
 //faccio scomparire i numeri dopo tot tempo
+
+// setTimeout(hide (saimonSaysDom), 30000);
 setTimeout(function(){
     saimonSaysDom.classList.add('d-none');
-},3000);
+},30000);
 
 
 //chiedo all' untente di inserire i numeri che ricorda
 setTimeout(function(){
     let numero;
+    let userNumbers = [];
+    let foundNumbers = [];
 
-    for(let i = 0; i < 5; i++){
+    while(userNumbers.length < 5){
         numero = parseInt(prompt('Scrivi i numeri che ti ricordi, uno alla volta'));
-        userNumbers.push(numero);
 
-        if(numberList.includes(numero)){
-            foundNumbers.push(numero);
-        }else if(i == 5){
-            console.log('Mi dispiace non hai indovinato nessun numero');
+        if(!userNumbers.includes(numero)){
+            userNumbers.push(numero);
+        } 
+    }
+    for(let i = 0; i < userNumbers.length;i++){
+        const numberToVerify = userNumbers[i]
+
+        if(numberList.includes(numberToVerify)){
+            foundNumbers.push(numberToVerify);
         }
+    }
+    if(foundNumbers.length === 0){
+        foundNumbersDom.innerHTML = ('Mi dispiace non hai indovinato nessun numero');
+    }else{
         foundNumbersDom.innerHTML = `Complimenti i numeri che hai idovinato sono ${foundNumbers.length} e sono i numeri ${foundNumbers}`;
     }
-
-}, 3200);
+    
+    
+}, 32000);
 
 
 
